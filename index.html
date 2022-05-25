@@ -115,10 +115,12 @@
 		let displayM = minutes<10?'0'+minutes:minutes
 		let seconds = d.getSeconds()
 		let displayS = seconds<10?'0'+seconds:seconds
-		let top = `2022年05月${displayDay}日`
+		let month = d.getMonth()+1
+		let displayMonth = month<10?'0'+month:month
+		let top = `${d.getFullYear()}年${displayMonth}月${displayDay}日`
 		let topTime = `${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}:${displayS}`
-		let bottom = `05-${displayDay} ${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}`
-		let bottomExpire = `05-${displayDay} 24:00`
+		let bottom = `${displayMonth}-${displayDay} ${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}`
+		let bottomExpire = `${displayMonth}-${displayDay} 24:00`
 		document.getElementById('topDay').innerHTML = top
 		// tick tick
 		document.getElementById('topTime').innerHTML = topTime
