@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		body,html{
+			margin:0;
+		}
+		.img{
+			width: 100%;
+		}
+		.container{
+			position: relative;
+		}
+		.top,.bottom{
+			font-family: emoji;
+			color:#727272;
+			position: absolute;
+			font-size: 18px;
+		}
+		.top{
+			top:11.6%;
+			width: 100%;
+			text-align: center;
+		}
+		.bottom{
+			bottom:15%;
+			right:10%;
+		}
+		#bottomExpire{
+			color:#e21e2a;
+			position: relative;
+			top:13px;
+		}
+		.gif{
+			position: absolute;
+			top: 19%;
+			left: 14%;
+			width: 75%;
+			display: none;
+		}
+		.gif1{
+			display: none;
+			position: absolute;
+			top: 19%;
+			left: 14%;
+			width: 80%;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+	<div class="top">
+		<div id="topDay"></div>
+		<div id="topTime"></div>
+	</div>
+	<div class="bottom">
+		<div id="bottomTime"></div>
+		<div id="bottomExpire"></div>
+	</div>
+	<img src="" alt="" class="gif1" id="gif1">
+	<img src="" alt="" class="gif" id="gif">
+	<img src="" alt="" class="img" id='back'>
+</div>
+<script>
+
+	function getTopTime(){
+		let d = new Date();
+		let minutes = d.getMinutes()
+		let displayM = minutes<10?'0'+minutes:minutes
+		let seconds = d.getSeconds()
+		let displayS = seconds<10?'0'+seconds:seconds
+		return topTime = `${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}:${displayS}`	
+	}
+	function decrypt(msg, pass){
+    	let decryptedBytes = CryptoJS.AES.decrypt(msg, pass);
+    	return decryptedBytes.toString(CryptoJS.enc.Utf8);
+	}
+	window.onload = function(){
+		// parse query
+		let search = location.search.substring(1);
+		let obj = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
+		if(!obj.pass||!obj.type){
+			return
+		}
+		let pass = obj.pass
+		let back = decrypt('U2FsdGVkX19/TmhdYVTH4zzB48aAjEr4g79pL9kwAt7uZ5q1P59tFDkYYuIEzE4pwuiSIPfSDeqFUYrw3QyOAw==',pass)
+		let aa = decrypt('U2FsdGVkX1++ddBK7/U8rzlg6c2RvV7w9KaEUqtSf5sMP9zF2pYstOqlNG+stkLSQuAEx1fs1EcUDbZjFil4SQ==',pass)
+		let aaa = decrypt('U2FsdGVkX1+daWFwBhvm20vgoCTT6e2fQOD8ztxibf+VZ45/45IIC0KDCovA43DMYnYTKvYsREyA2cuGX7TRMw==',pass)
+		if(!back){
+			return
+		}
+		console.log(aaa)
+		// assign url
+		let backElem = document.getElementById('back')
+		let gif1Elem = document.getElementById('gif1')
+		let gifElem = document.getElementById('gif')
+		//
+		if(obj.type==1){
+			gifElem.src = aaa
+			document.getElementById('gif').style.display ='block'
+		}else if(obj.type==2){
+			gif1Elem.src = aa
+			document.getElementById('gif1').style.display ='block'
+		}
+		backElem.src = back
+
+		let d = new Date();
+		let day = d.getDate()
+		let displayDay = day<10?'0'+day:day
+		let minutes = d.getMinutes()
+		let displayM = minutes<10?'0'+minutes:minutes
+		let seconds = d.getSeconds()
+		let displayS = seconds<10?'0'+seconds:seconds
+		let top = `2022年05月${displayDay}日`
+		let topTime = `${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}:${displayS}`
+		let bottom = `05-${displayDay} ${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}`
+		let bottomExpire = `05-${displayDay} 24:00`
+		document.getElementById('topDay').innerHTML = top
+		// tick tick
+		document.getElementById('topTime').innerHTML = topTime
+		document.getElementById('bottomTime').innerHTML = bottom
+		document.getElementById('bottomExpire').innerHTML = bottomExpire
+		
+		setInterval(()=>{
+			document.getElementById('topTime').innerHTML = getTopTime()
+		},1000)
+	}
+</script>
+</body>
+</html>
