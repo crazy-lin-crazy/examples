@@ -16,17 +16,17 @@
 		}
 		.top,.bottom{
 			font-family: emoji;
-			color:#727272;
+			color:#333;
 			position: absolute;
-			font-size: 18px;
+			font-size: 16px;
 		}
 		.top{
-			top:11.6%;
+			top:12.6%;
 			width: 100%;
 			text-align: center;
 		}
 		.bottom{
-			bottom:15%;
+			bottom:14.5%;
 			right:10%;
 		}
 		#bottomExpire{
@@ -37,16 +37,22 @@
 		.gif{
 			position: absolute;
 			top: 19%;
-			left: 14%;
-			width: 75%;
+			left: 20%;
+			width: 60%;
 			display: none;
 		}
 		.gif1{
 			display: none;
 			position: absolute;
 			top: 19%;
-			left: 14%;
-			width: 80%;
+			left: 20%;
+			width: 60%;
+		}
+		.mock{
+			position: absolute;
+			width: 100%;
+			left: 0;
+			opacity: .5;
 		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
@@ -75,9 +81,6 @@
 		let displayS = seconds<10?'0'+seconds:seconds
 		return topTime = `${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}:${displayS}`	
 	}
-	function encrypt(msg,pass){
-		return CryptoJS.AES.encrypt(msg, pass).toString();
-	}
 	function decrypt(msg, pass){
     	let decryptedBytes = CryptoJS.AES.decrypt(msg, pass);
     	return decryptedBytes.toString(CryptoJS.enc.Utf8);
@@ -90,9 +93,10 @@
 			return
 		}
 		let pass = obj.pass
-		let back = decrypt('U2FsdGVkX184N1nwPvmTOZBZA2lNXf+NFv8Amy0crz+bDGvRxsa5jKMhxYcLDkHO/ymo8LCqviPU0jdOzvz6dOZDpm84m/o6xiSz/Zuktw1ih1eV8xS7m107TPCfmtE7',pass)
-		let aaa = decrypt('U2FsdGVkX18RoGkl+uTL23K0tIR4jmJYJ79i71nlfqR83/ye/9b2wxygg6fGB17SKI4tI2m4o4HanuldLbh+K5AwZ4bU4nMFNdtTNj5g5NOIQ5eb28k4QHCGxk/1ckpP',pass)
-		let aa = decrypt('U2FsdGVkX18RoGkl+uTL23K0tIR4jmJYJ79i71nlfqR83/ye/9b2wxygg6fGB17SKI4tI2m4o4HanuldLbh+K5AwZ4bU4nMFNdtTNj5g5NOIQ5eb28k4QHCGxk/1ckpP',pass)
+
+		let back = decrypt('U2FsdGVkX1+FoRTyBomJUEXvAeZO5nvo3hiqWBW1+yzJeLSNTP2CWKOxOmweW6+Lcip6iv9yD25bcxFGj1L9UIJ2V1OzIqDhpjEbE//6Rs356TzcszWAkEdTV8qKyur8',pass)
+		let aaa = decrypt('U2FsdGVkX1/zM47M+Z59dNBG64sbgazFcVvLzC3t3dWc/UfK9wATYMfBUsYBTmKrco6x7fAldIRgr4ZQoda3Uda79agJjJ9jmiri9QKwqHb1uqI2i1R6MRACOvVqh573',pass)
+		let aa = decrypt('U2FsdGVkX18l3S5GsKzjV33sj+QyN7GUftSBdr/KoW2psPMKC8LyCpAPZs73zBuWJIpiQNPpEf7zJDrIJNyF+Grq75QASSuGEZ0eG1sVcx2736XJovSSYUl51b5A/dL9',pass)
 		if(!back){
 			return
 		}
@@ -137,3 +141,5 @@
 </script>
 </body>
 </html>
+
+
