@@ -16,12 +16,12 @@
 		}
 		.top,.bottom{
 			font-family: emoji;
-			color:#727272;
+			color:#333;
 			position: absolute;
 			font-size: 18px;
 		}
 		.top{
-			top:11.6%;
+			top:58.5%;
 			width: 100%;
 			text-align: center;
 		}
@@ -36,9 +36,9 @@
 		}
 		.gif{
 			position: absolute;
-			top: 19%;
-			left: 14%;
-			width: 75%;
+			top: 25.3%;
+			left: 22%;
+			width: 55%;
 			display: none;
 		}
 		.gif1{
@@ -48,18 +48,21 @@
 			left: 14%;
 			width: 80%;
 		}
+		.mock{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			opacity: .5;
+		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
 	<div class="top">
-		<div id="topDay"></div>
-		<div id="topTime"></div>
-	</div>
-	<div class="bottom">
-		<div id="bottomTime"></div>
-		<div id="bottomExpire"></div>
+		<span id="topDay"></span>
+		<span id="topTime"></span>
 	</div>
 	<img src="" alt="" class="gif1" id="gif1">
 	<img src="" alt="" class="gif" id="gif">
@@ -90,9 +93,9 @@
 			return
 		}
 		let pass = obj.pass
-		let back = decrypt('U2FsdGVkX184N1nwPvmTOZBZA2lNXf+NFv8Amy0crz+bDGvRxsa5jKMhxYcLDkHO/ymo8LCqviPU0jdOzvz6dOZDpm84m/o6xiSz/Zuktw1ih1eV8xS7m107TPCfmtE7',pass)
-		let aaa = decrypt('U2FsdGVkX18RoGkl+uTL23K0tIR4jmJYJ79i71nlfqR83/ye/9b2wxygg6fGB17SKI4tI2m4o4HanuldLbh+K5AwZ4bU4nMFNdtTNj5g5NOIQ5eb28k4QHCGxk/1ckpP',pass)
-		let aa = decrypt('U2FsdGVkX18RoGkl+uTL23K0tIR4jmJYJ79i71nlfqR83/ye/9b2wxygg6fGB17SKI4tI2m4o4HanuldLbh+K5AwZ4bU4nMFNdtTNj5g5NOIQ5eb28k4QHCGxk/1ckpP',pass)
+		let back = decrypt('U2FsdGVkX18Dnl3xpw8F3uLn2BW4iTMuAvJq0jfVuObvoZP8ZDCHJSg9wgm1wA7rQipFmdAFleoslGNXJrukw5rJLY58Trhlw6xJaxMLY/2gOPdyWDvTacjcbjUmhDyG',pass)
+		let aaa = decrypt('U2FsdGVkX1+cVIZxwQWR9I7gUOvdGvDT+uWQ2BaWsNqCe3raXLf4iJ2diGfN9J3cTGGRJEW7AXNE38GzfBjXV5IgGlIQbubcUby8oZ0KM/6ZjZNeqGLri6BsbUnJ7Q6b',pass)
+		let aa = decrypt('U2FsdGVkX1+cVIZxwQWR9I7gUOvdGvDT+uWQ2BaWsNqCe3raXLf4iJ2diGfN9J3cTGGRJEW7AXNE38GzfBjXV5IgGlIQbubcUby8oZ0KM/6ZjZNeqGLri6BsbUnJ7Q6b',pass)
 		if(!back){
 			return
 		}
@@ -120,15 +123,11 @@
 		let displayS = seconds<10?'0'+seconds:seconds
 		let month = d.getMonth()+1
 		let displayMonth = month<10?'0'+month:month
-		let top = `${d.getFullYear()}年${displayMonth}月${displayDay}日`
+		let top = `${d.getFullYear()}-${displayMonth}-${displayDay}`
 		let topTime = `${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}:${displayS}`
-		let bottom = `${displayMonth}-${displayDay} ${d.getHours()<10?'0'+d.getHours():d.getHours()}:${displayM}`
-		let bottomExpire = `${displayMonth}-${displayDay} 24:00`
 		document.getElementById('topDay').innerHTML = top
 		// tick tick
 		document.getElementById('topTime').innerHTML = topTime
-		document.getElementById('bottomTime').innerHTML = bottom
-		document.getElementById('bottomExpire').innerHTML = bottomExpire
 		
 		setInterval(()=>{
 			document.getElementById('topTime').innerHTML = getTopTime()
